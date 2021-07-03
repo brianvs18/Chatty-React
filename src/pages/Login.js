@@ -54,8 +54,8 @@ export default class Login extends Component {
             <div>
                 <form autoComplete="off" onSubmit={this.handleSubmit}>
                     <h1>
-                        Inicia sesión en
-                        <Link to="/">Chatty</Link>
+                        Inicia sesión en 
+                        <Link to="/"> Chatty</Link>
                     </h1>
                     <p>Ingrese el siguiente formulario para crear una cuenta.</p>
                     <div>
@@ -76,7 +76,7 @@ export default class Login extends Component {
                         GitHub
                     </button>
                     <hr />
-                    <p>¿No tienes una cuenta? <Link to="/login">Regístrate</Link></p>
+                    <p>¿No tienes una cuenta? <Link to="/signup">Regístrate</Link></p>
                 </form>
             </div>
         );
