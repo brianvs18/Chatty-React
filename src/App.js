@@ -13,9 +13,9 @@ function PrivateRoute({ Component: Component, authenticated, ...rest }) {
   return (
     <Route
       {...rest}
-      render={(props) => authenticated === true
-        ? <Component {...props} />
-        : <Redirect to={{ pathname: '/login', state: { from: props.location } }} />}
+      render={props => authenticated === true
+        ? (<Component {...props} />)
+        : (<Redirect to={{ pathname: '/login', state: { from: props.location } }} />)}
     />
   )
 }
@@ -26,9 +26,9 @@ function PublicRoute({ Component: Component, authenticated, ...rest }) {
       {...rest}
       render={(props) => authenticated === false
         ? <Component {...props} />
-        : <Redirect to={{ pathname: '/chat', state: { from: props.location } }} />}
+        : <Redirect to="/chat" />}
     />
-  )
+  );
 }
 
 class App extends Component {
@@ -46,27 +46,27 @@ class App extends Component {
       if (user) {
         this.setState({
           authenticated: true,
-          loading: false,
+          loading: false
         });
       } else {
         this.setState({
           authenticated: false,
-          loading: true,
+          loading: false,
         });
       }
-    })
+    });
   }
 
   render() {
     return this.state.loading === true ? <h2>Cargando...</h2> : (
-      <Route>
+      <Router>
         <Switch>
           <Route exact path="/" component={Home} />
           <PrivateRoute path="/chat" authenticated={this.state.authenticated} component={Chat} />
           <PublicRoute path="/signup" authenticated={this.state.authenticated} component={Signup} />
           <PublicRoute path="/login" authenticated={this.state.authenticated} component={Login} />
         </Switch>
-      </Route>
+      </Router>
     );
   }
 }
