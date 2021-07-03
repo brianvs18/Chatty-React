@@ -53,7 +53,10 @@ export default class Chat extends Component {
             await db.ref("chats").push({
                 content: this.state.content,
                 timestamp: Date.now(),
-                uid: this.state.user.uid
+                uid: this.state.user.uid,
+                image: this.state.user.photoURL,
+                nameUser: this.state.user.displayName,
+                email: this.state.user.email
             });
             this.setState({ content: '' });
             chatArea.scrollBy(0, chatArea.scrollHeight);
@@ -74,16 +77,23 @@ export default class Chat extends Component {
                 <Header />
                 <div className="chat-area" ref={this.myRef}>
                     {this.state.loadingChats ? <div className="spinner-border text-success" role="status">
-                        <span className="sr-only">Loading...</span>
+                        <span className="sr-only">Cargando...</span>
                     </div> : ""}
+
+                    {/* Chat */}
                     {this.state.chats.map(chat => {
                         return <p key={chat.timestamp} className={"chat-bubble " + (this.state.user.uid === chat.uid ? "current-user" : "")}>
-                            {chat.content}
+                            <span className="chat-time float-right">{`${chat.nameUser} `}</span>
+                            <span className="chat-time float-left">{`${chat.email} `}</span>
+                            <br></br>
+                            <img src={chat.image} className={"image-photo"} alt="" />                            
+                            {chat.content}                                                    
                             <br />
                             <span className="chat-time float-right">{this.formatTime(chat.timestamp)}</span>
-                        </p>
+                        </p>                        
                     })}
                 </div>
+
                 {/* formulario mensajes */}
                 <form onSubmit={this.handleSubmit} className="mx-3">
                     <textarea className="form-control" name="content" onChange={this.handleChange} value={this.state.content}></textarea>
