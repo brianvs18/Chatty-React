@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { signup } from '../helpers/auth';
+import { signup, signInWithGoogle, signInWithGitHub } from "../helpers/auth";
 
 export default class Signup extends Component {
 
@@ -13,6 +13,7 @@ export default class Signup extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.githubSignIn = this.githubSignIn.bind(this);
     }
 
     handleChange(event) {
@@ -28,6 +29,22 @@ export default class Signup extends Component {
             await signup(this.state.email, this.state.password);
         } catch (error) {
             this.setState({ error: error.message });
+        }
+    }
+
+    async googleSignIn() {
+        try {
+            await signInWithGoogle();
+        } catch (error) {
+            this.setState({ error: error.message });
+        }
+    }
+
+    async githubSignIn() {
+        try {
+            await signInWithGitHub();
+        } catch (error) {
+            this.setState({error: error.message});
         }
     }
 
@@ -50,10 +67,17 @@ export default class Signup extends Component {
                         {this.state.error ? <p>{this.state.error}</p> : null}
                         <button type="submit">Inscribirse</button>
                     </div>
-                    <hr></hr>
+                    <p>También puede ingresar con: </p>
+                    <button onClick={this.googleSignIn} type="button">
+                        Google
+                    </button>
+                    <button className="btn btn-secondary" type="button" onClick={this.githubSignIn}>
+                        GitHub
+                    </button>
+                    <hr />
                     <p>¿Tienes una cuenta? <Link to="/login">Iniciar sesión</Link></p>
                 </form>
             </div>
-        )
+        );
     }
 }

@@ -13,6 +13,7 @@ export default class Login extends Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.githubSignIn = this.githubSignIn.bind(this);
     }
 
     handleChange(event) {
@@ -31,8 +32,24 @@ export default class Login extends Component {
         }
     }
 
-    render(){
-        return(
+    async googleSignIn() {
+        try {
+          await signInWithGoogle();
+        } catch (error) {
+          this.setState({ error: error.message });
+        }
+      }
+
+      async githubSignIn() {
+        try {
+            await signInWithGitHub();
+        } catch (error) {
+            this.setState({error: error.message});
+        }
+    }
+
+    render() {
+        return (
             <div>
                 <form autoComplete="off" onSubmit={this.handleSubmit}>
                     <h1>
@@ -41,7 +58,7 @@ export default class Login extends Component {
                     </h1>
                     <p>Ingrese el siguiente formulario para crear una cuenta.</p>
                     <div>
-                    <input placeholder="Email" name="email" type="email" onChange={this.handleChange} value={this.state.email} />
+                        <input placeholder="Email" name="email" type="email" onChange={this.handleChange} value={this.state.email} />
                     </div>
                     <div>
                         <input placeholder="Contraseña" name="password" onChange={this.handleChange} value={this.state.password} type="password" />
@@ -50,6 +67,13 @@ export default class Login extends Component {
                         {this.state.error ? <p>{this.state.error}</p> : null}
                         <button type="submit">Iniciar sesión</button>
                     </div>
+                    <p>También puede ingresar con: </p>
+                    <button onClick={this.googleSignIn} type="button">
+                        Google
+                    </button>
+                    <button className="btn btn-secondary" type="button" onClick={this.githubSignIn}>
+                        GitHub
+                    </button>
                     <hr />
                     <p>¿No tienes una cuenta? <Link to="/login">Regístrate</Link></p>
                 </form>
