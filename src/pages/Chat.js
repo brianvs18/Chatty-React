@@ -73,7 +73,7 @@ export default class Chat extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container-sm">
                 <Header />
                 <div className="chat-area" ref={this.myRef}>
                     {this.state.loadingChats ? <div className="spinner-border text-success" role="status">
@@ -86,19 +86,23 @@ export default class Chat extends Component {
                             <span className="chat-time float-right">{`${chat.nameUser} `}</span>
                             <span className="chat-time float-left">{`${chat.email} `}</span>
                             <br></br>
-                            <img src={chat.image} className={"image-photo"} alt="" />                            
-                            {chat.content}                                                    
+                            <img src={chat.image} className={"image-photo"} alt="" />
+                            {chat.content}
                             <br />
                             <span className="chat-time float-right">{this.formatTime(chat.timestamp)}</span>
-                        </p>                        
+                        </p>
                     })}
                 </div>
 
                 {/* formulario mensajes */}
                 <form onSubmit={this.handleSubmit} className="mx-3">
-                    <textarea className="form-control" name="content" onChange={this.handleChange} value={this.state.content}></textarea>
+                    <input className="form-control txtSend" name="content" onChange={this.handleChange} value={this.state.content}></input>
                     {this.state.error ? <p className="text-danger">{this.state.error}</p> : null}
-                    <button type="submit" className="btn btn-submit px-5 mt-4">Enviar</button>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" className="btn btn-success">
+                        Enviar
+                    </button>
+                    </div>
                 </form>
                 <div className="py-5 mx-3">
                     Sesión iniciada por: <strong>{this.state.user.email}</strong>
