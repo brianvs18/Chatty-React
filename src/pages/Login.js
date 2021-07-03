@@ -4,8 +4,8 @@ import { signin, signInWithGoogle, signInWithGitHub } from "../helpers/auth";
 
 export default class Login extends Component {
 
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             error: null,
             email: "",
@@ -51,25 +51,25 @@ export default class Login extends Component {
 
     render() {
         return (
-            <div>
-                <form autoComplete="off" onSubmit={this.handleSubmit}>
+            <div className="container">
+                <form autoComplete="off" onSubmit={this.handleSubmit} className="mt-5 py-5 px-5">
                     <h1>
                         Inicia sesión en 
-                        <Link to="/"> Chatty</Link>
+                        <Link to="/" className="title ml-2"> Chatty</Link>
                     </h1>
-                    <p>Ingrese el siguiente formulario para crear una cuenta.</p>
-                    <div>
-                        <input placeholder="Email" name="email" type="email" onChange={this.handleChange} value={this.state.email} />
+                    <p className="lead">Ingrese el siguiente formulario para crear una cuenta.</p>
+                    <div className="form-group">
+                        <input placeholder="Email" name="email" type="email" onChange={this.handleChange} value={this.state.email} className="form-control" />
                     </div>
-                    <div>
-                        <input placeholder="Contraseña" name="password" onChange={this.handleChange} value={this.state.password} type="password" />
+                    <div className="form-group">
+                        <input placeholder="Contraseña" name="password" onChange={this.handleChange} value={this.state.password} type="password"  className="form-control" />
                     </div>
-                    <div>
-                        {this.state.error ? <p>{this.state.error}</p> : null}
-                        <button type="submit">Iniciar sesión</button>
+                    <div className="form-group">
+                        {this.state.error ? (<p className="text-danger">{this.state.error}</p>) : null}
+                        <button type="submit" className="btn btn-primary px-5">Iniciar sesión</button>
                     </div>
                     <p>También puede ingresar con: </p>
-                    <button onClick={this.googleSignIn} type="button">
+                    <button onClick={this.googleSignIn} type="button" className="btn btn-danger mr-2">
                         Google
                     </button>
                     <button className="btn btn-secondary" type="button" onClick={this.githubSignIn}>
