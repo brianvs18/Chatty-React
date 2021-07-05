@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Header from "../components/Header";
-import { auth } from "../services/firebase";
-import { db } from "../services/firebase";
+import { auth, db } from "../services/firebase";
 
 export default class Chat extends Component {
 
@@ -67,8 +66,7 @@ export default class Chat extends Component {
 
     formatTime(timestamp) {
         const date = new Date(timestamp);
-        const time = `${date.getDate()}/${(date.getMonth() + 1)}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;
-        return time;
+        return `${date.getDate()}/${(date.getMonth() + 1)}/${date.getFullYear()} ${date.getHours()}:${date.getMinutes()}`;        
     }
 
     render() {
@@ -105,7 +103,7 @@ export default class Chat extends Component {
                     </div>
                 </form>
                 <div className="py-5 mx-3">
-                    Sesión iniciada por: <strong>{this.state.user.email}</strong>
+                    Sesión iniciada por: <strong className="text-info">{this.state.user.email}</strong>
                 </div>
             </div>
         );
