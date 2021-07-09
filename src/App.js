@@ -9,7 +9,7 @@ import Signup from './pages/Signup';
 import { auth } from './services/firebase';
 import './styles.css';
 
-function PrivateRoute({ Component: Component, authenticated, ...rest }) {
+function PrivateRoute({ component: Component, authenticated, ...rest }) {
   return (
     <Route
       {...rest}
